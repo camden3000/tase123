@@ -1,0 +1,35 @@
+plugins {
+    id 'application'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation libs.bouncycastle.provider
+
+    testImplementation libs.junit.jupiter
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+application {
+    mainClass = 'com.example.hello.App'
+}
+
+tasks.register('runCrypt', JavaExec) {
+    group = 'application'
+    description = 'Run the Bouncy Castle crypt sample'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'com.example.crypt.CryptoSample'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
