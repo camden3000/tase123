@@ -7,6 +7,8 @@ repositories {
 }
 
 dependencies {
+    implementation libs.bouncycastle.provider
+
     testImplementation libs.junit.jupiter
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
@@ -19,6 +21,13 @@ java {
 
 application {
     mainClass = 'com.example.hello.App'
+}
+
+tasks.register('runCrypt', JavaExec) {
+    group = 'application'
+    description = 'Run the Bouncy Castle crypt sample'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'com.example.crypt.CryptoSample'
 }
 
 tasks.named('test') {
